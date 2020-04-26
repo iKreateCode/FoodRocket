@@ -24,6 +24,9 @@
         <activity
             android:name=".Navigation"
             android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name=".Item"
+            android:theme="@style/AppTheme.FullScreen" />
     </application>
 
 </manifest>
