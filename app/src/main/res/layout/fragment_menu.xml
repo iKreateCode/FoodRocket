@@ -7,10 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MenuFragment"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="#fcfcfc"
-    android:gravity="center"
-    android:id="@+id/ll">
+    android:background="#fcfcfc">
 
     <LinearLayout
         android:clipToPadding="false"

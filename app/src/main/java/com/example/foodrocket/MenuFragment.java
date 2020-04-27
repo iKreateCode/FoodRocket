@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements View.OnClickListener{
 
     CardView itemCard;
 
@@ -29,22 +29,24 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        //itemCard = (CardView) getView().findViewById(R.id.pizza1);
+        View view =  inflater.inflate(R.layout.fragment_menu, container, false);
 
-        //itemCard.setOnClickListener(this);
+        itemCard = (CardView) view.findViewById(R.id.pizza1);
 
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        itemCard.setOnClickListener(this);
+
+        return view;
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.pizza1 :
-//                Intent intent = new Intent(getContextApplication(), Login.class);
-//                startActivity(intent);
-//                break;
-//            default: break;
-//        }
-//    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.pizza1 :
+                Intent intent = new Intent(getActivity(), Item.class);
+                startActivity(intent);
+                break;
+            default: break;
+        }
+    }
 }
