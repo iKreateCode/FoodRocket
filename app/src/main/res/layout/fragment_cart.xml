@@ -1,64 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CartFragment">
+    tools:context=".CartFragment"
+    android:orientation="vertical">
 
-    <!--    <androidx.appcompat.widget.Toolbar-->
-    <!--        android:id="@+id/bgHeader"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="90dp"-->
-    <!--        android:background="@drawable/rectangle_header"-->
-    <!--        android:theme="@style/ToolbarTheme"-->
-    <!--        android:elevation="5dp" />-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:elevation="10dp"
-        android:transitionName="tvLogin"
-        android:text="CART"
-        android:textColor="@android:color/white"
-        android:textSize="50dp"
-        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/r_layout_cart_page"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp">
+        android:orientation="vertical">
 
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bgHeader"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@android:color/white"
+            android:elevation="5dp"
+            android:theme="@style/ToolbarTheme"
+            android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:elevation="10dp"
+                android:text="CART"
+                android:textColor="@color/UI_DarkGrey"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                android:transitionName="tvLogin" />
     </RelativeLayout>
 
-    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cart_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/r_layout_cart_page"
-        android:layout_above="@+id/cart_but_2" />
+        android:layout_height="352dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_above="@+id/cart_but_2"
-        >
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/cart_total"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/cart_but_2"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:layout_marginTop="15dp"
-            />
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Subtotal"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="20dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Shipping"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="20dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Total"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_marginRight="25dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/subtotal_amount"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="£9.99"
+                    android:gravity="left"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="20dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/shipping_amount"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="£4.99"
+                    android:gravity="left"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="20dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/total_amount"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="£14.98"
+                    android:gravity="left"
+                    android:textColor="@color/UI_DarkBlue"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
     <Button
@@ -66,15 +133,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Reserve Items"
+        android:layout_margin="20dp"
+        android:text="CHECKOUT"
         android:textSize="25dp"
         android:background="@color/UI_Red"
         android:textAllCaps="false"
         android:textColor="@android:color/white"/>
 
 
-</RelativeLayout>
+</LinearLayout>

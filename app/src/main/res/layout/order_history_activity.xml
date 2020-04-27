@@ -64,31 +64,6 @@
                             android:textColor="#9b9b9b"
                             android:text="60 Kub Pines Apt. 797"
                             android:layout_marginTop="4dp"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <RatingBar
-                                android:id="@+id/RatingBar_Id"
-                                style="?android:attr/ratingBarStyleSmall"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:rating="4"
-                                android:progressTint="#f15421"
-                                android:numStars="5"/>
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/Reviews_Id"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8.4dp"
-                                android:textSize="11.5sp"
-                                android:textColor="#9b9b9b"
-                                android:text="238 reviews"/>
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
