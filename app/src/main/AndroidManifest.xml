@@ -27,6 +27,9 @@
         <activity
             android:name=".Item"
             android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/AppTheme.FullScreen" />
     </application>
 
 </manifest>

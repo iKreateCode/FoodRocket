@@ -4,6 +4,7 @@
     app:cnb_unselectedColor="#666666">
 
     <item
+        android:enabled="true"
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="Menu"
