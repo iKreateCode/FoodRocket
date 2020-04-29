@@ -28,7 +28,7 @@
             android:name=".Item"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".ItemDetailActivity"
             android:theme="@style/AppTheme.FullScreen" />
     </application>
 

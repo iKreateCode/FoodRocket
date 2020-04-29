@@ -13,13 +13,13 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
 
-public class Adapter extends PagerAdapter {
+public class PopularItemAdapter extends PagerAdapter {
 
-    private List<PopularItemModel> models;
+    private List<ItemModel> models;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public Adapter(List<PopularItemModel> models, Context context) {
+    public PopularItemAdapter(List<ItemModel> models, Context context) {
         this.models = models;
         this.context = context;
     }
@@ -54,7 +54,7 @@ public class Adapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
+                Intent intent = new Intent(context, ItemDetailActivity.class);
                 intent.putExtra("param", models.get(position).getTitle());
                 context.startActivity(intent);
                 // finish();
@@ -69,4 +69,5 @@ public class Adapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View)object);
     }
+
 }

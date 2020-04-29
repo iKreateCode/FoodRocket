@@ -1,12 +1,12 @@
 package com.example.foodrocket;
 
-public class PopularItemModel {
+public class ItemModel {
 
     private int image;
     private String title;
     private String desc;
 
-    public PopularItemModel(int image, String title, String desc) {
+    public ItemModel(int image, String title, String desc) {
         this.image = image;
         this.title = title;
         this.desc = desc;

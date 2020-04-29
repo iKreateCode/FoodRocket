@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,16 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
     RecyclerView recyclerView;
     ViewPager viewPager;
-    Adapter adapter;
-    List<PopularItemModel> models;
+    PopularItemAdapter adapter;
+    List<ItemModel> models;
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+
+    RecyclerView dataList;
+    List<String> titles;
+    List<Integer> images;
+    List<String> desc;
+    ItemAdapter adapters;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -47,26 +55,57 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
         //itemCard.setOnClickListener(this);
 
-        models = new ArrayList<>();
-        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
+//        models = new ArrayList<>();
+//        models.add(new ItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
+//        models.add(new ItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
+//        models.add(new ItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
+//        models.add(new ItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
+//
+//        adapter = new PopularItemAdapter(models, (Context) getActivity());
+//
+//        viewPager = view.findViewById(R.id.viewPager);
+//        viewPager.setAdapter(adapter);
+//        viewPager.setPadding(200, 0, 200, 0);
 
-        adapter = new Adapter(models, (Context) getActivity());
+        dataList = (RecyclerView) view.findViewById(R.id.recycler_menu);
 
-        viewPager = view.findViewById(R.id.viewPager);
-        viewPager.setAdapter(adapter);
-        viewPager.setPadding(200, 0, 200, 0);
-
-        Integer[] colors_temp = {
-                getResources().getColor(R.color.UI_LightBlue),
-                getResources().getColor(R.color.UI_LightBlue),
-                getResources().getColor(R.color.UI_DarkBlue),
-                getResources().getColor(R.color.UI_Red)
-        };
+        titles = new ArrayList<>();
+        images = new ArrayList<>();
+        desc = new ArrayList<>();
 
 
+        titles.add("First Item");
+        titles.add("Second Item");
+        titles.add("Third Item");
+        titles.add("Fourth Item");
+        titles.add("First Item");
+        titles.add("Second Item");
+        titles.add("Third Item");
+        titles.add("Fourth Item");
+
+        desc.add("asdsadasdasdasdasdasdasdasdsadasd");
+        desc.add("Second Item");
+        desc.add("Third Item");
+        desc.add("Fourth Item");
+        desc.add("First Item");
+        desc.add("Second Item");
+        desc.add("Third Item");
+        desc.add("Fourth Item");
+
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+        images.add(R.drawable.pizza);
+
+        adapters = new ItemAdapter((Context) getActivity(),titles,images,desc);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),2,GridLayoutManager.VERTICAL,false);
+        dataList.setLayoutManager(gridLayoutManager);
+        dataList.setAdapter(adapters);
 
         return view;
 
