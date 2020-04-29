@@ -86,24 +86,26 @@ public class Login extends AppCompatActivity {
         ApiLoginRequest login_api = new ApiLoginRequest();
         try {
             String response = login_api.execute(email, password).get();
-            Log.d("Token", response);
             JsonParser parser = new JsonParser();
             JsonObject json_response = parser.parse(response).getAsJsonObject();
 
-            if (json_response.has("success")) {
+            if (json_response.has("success")) { // Valid credentials :)
                 String token = json_response.getAsJsonObject("success").get("token").toString();
+                token = token.substring(1, token.length() - 1);
 
                 SharedPreferences sharedPreferences = this.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(USER_TOKEN, token);
                 editor.apply();
 
+                Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+
                 Intent intent = new Intent(getApplicationContext(), Navigation.class);
                 startActivity(intent);
-            } else if (json_response.has("error")) {
+            } else if (json_response.has("error")) { // Invalid credentials
                 String error = json_response.get("error").toString();
                 Toast.makeText(Login.this, error,Toast.LENGTH_LONG).show();
-            } else {
+            } else { // Some other error :(
                 Toast.makeText(Login.this, response,Toast.LENGTH_LONG).show();
             }
 
@@ -114,14 +116,6 @@ public class Login extends AppCompatActivity {
 
     class ApiLoginRequest extends AsyncTask<String,Void,String> {
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(s.equalsIgnoreCase("success")){
-                Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
         protected String doInBackground(String... params) {
             HashMap<String,String> credentials = new HashMap<>();
             credentials.put("email",params[0]);
@@ -129,7 +123,7 @@ public class Login extends AppCompatActivity {
 
             GetRequestHandler ruc = new GetRequestHandler();
 
-            String response = ruc.sendPostRequest("https://foodrocket.herokuapp.com/api/v1/user/login", credentials, "POST");
+            String response = ruc.sendPostRequest("https://foodrocket.herokuapp.com/api/v1/user/login", credentials);
             return response;
         }
     }
