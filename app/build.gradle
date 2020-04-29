@@ -45,4 +45,5 @@ dependencies {
     implementation 'com.fxn769:ariana:1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'de.gerdi-project:GSON:6.0.6'
 }

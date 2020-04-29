@@ -75,15 +75,15 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        defaultGetItems();
+        //defaultGetItems();
     }
 
     // Recycler view fetch items
-    private void defaultGetItems() {
-
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
-    }
+//    private void defaultGetItems() {
+//
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+//    }
 
     @Override
     public void onClick(View v) {
