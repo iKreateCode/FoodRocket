@@ -5,11 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +27,8 @@ public class CartFragment extends Fragment {
 
     private static ArrayList<MenuItem> items = new ArrayList<>(0);
     private static ArrayList<Offer> offers = new ArrayList<>(0);
+    private RecyclerView recyclerView;
+    private CartAdapter adapter;
 
     private final static String SHARED_PREFS = "sharedPrefs";
     private final static String CART_MENU_ITEMS = "cart_menu_items";
@@ -52,10 +57,18 @@ public class CartFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (!cart_loaded) loadSavedCartItems(getContext());
+
+        View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+        recyclerView = view.findViewById(R.id.cart_list);
+        adapter = new CartAdapter(items, getContext());
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),1,GridLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     private static void loadSavedCartItems(Context context) {
@@ -102,7 +115,7 @@ public class CartFragment extends Fragment {
         saveCartItems(context);
     }
 
-    private static void removeFromCart(MenuItem item, Context context) {
+    public static void removeFromCart(MenuItem item, Context context) {
         if (!cart_loaded) {
             loadSavedCartItems(context);
             cart_loaded = true;
@@ -111,13 +124,14 @@ public class CartFragment extends Fragment {
         for (MenuItem anItem : items) {
             if (anItem == item) {
                 items.remove(item);
+                break;
             }
         }
-
+        Toast.makeText(context, "Item Removed.", Toast.LENGTH_SHORT).show();
         saveCartItems(context);
     }
 
-    private static void removeFromCart(Offer offer, Context context) {
+    public static void removeFromCart(Offer offer, Context context) {
         if (!cart_loaded) {
             loadSavedCartItems(context);
             cart_loaded = true;
@@ -139,7 +153,9 @@ public class CartFragment extends Fragment {
         }
 
         for (MenuItem anItem : items) {
-            if (anItem == item) return true;
+            if (anItem == item) {
+                return true;
+            }
         }
 
         return false;

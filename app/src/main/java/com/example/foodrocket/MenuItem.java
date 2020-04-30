@@ -60,11 +60,11 @@ public class MenuItem {
         this.image_url = image_url;
     }
 
-//    public ArrayList<ItemExtra> getExtras() {
-//        return extras;
-//    }
+    public ArrayList<ItemExtra> getExtras() {
+        return extras;
+    }
 
-//    public void setExtras(ArrayList<ItemExtra> extras) {
-//        this.extras = extras;
-//    }
+    public void setExtras(ArrayList<ItemExtra> extras) {
+        this.extras = extras;
+    }
 }
