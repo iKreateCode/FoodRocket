@@ -51,8 +51,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         recyclerView = view.findViewById(R.id.recycler_menu);
         adapter = new ItemAdapter(items, getContext());
 
-        items.add(new MenuItem());
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
