@@ -1,21 +1,20 @@
 package com.example.foodrocket;
 
-import android.animation.ArgbEvaluator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,7 +24,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -40,11 +38,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 //    List<PopularItemModel> models;
 //    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
-    CardView itemCard;
-    RecyclerView dataList;
-    List<String> titles;
-    List<Integer> images;
-    List<String> desc;
+    RecyclerView recyclerView;
     ItemAdapter adapter;
     ArrayList<MenuItem> items = new ArrayList<>();
 
@@ -56,6 +50,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     }
 
 
+    @SuppressLint("Assert")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,32 +75,16 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 //        viewPager.setPadding(200, 0, 200, 0);
 //
 
-        dataList = view.findViewById(R.id.recycler_menu);
+        recyclerView = view.findViewById(R.id.recycler_menu);
 
-        titles = new ArrayList<>();
-        images = new ArrayList<>();
-        desc = new ArrayList<>();
-
-
-        titles.add("First Item");
-        titles.add("Second Item");
-
-        images.add(R.drawable.pizza);
-        images.add(R.drawable.pizza);
-
-        desc.add("ADFDSFDSF");
-        desc.add("ADFDSFDSF");
-
-
-        adapter = new ItemAdapter((Context) getActivity(),titles,images, desc);
+        adapter = new ItemAdapter(items, (Context) getActivity());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),2,GridLayoutManager.VERTICAL,false);
-        dataList.setLayoutManager(gridLayoutManager);
-        dataList.setAdapter(adapter);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(adapter);
 
 
         return view;
-
     }
 
     @Override
@@ -137,8 +116,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        recyclerView.setAdapter(adapter);
-//        adapter.startListening();
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

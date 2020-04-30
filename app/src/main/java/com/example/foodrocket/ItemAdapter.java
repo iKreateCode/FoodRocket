@@ -1,6 +1,7 @@
 package com.example.foodrocket;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +12,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.ItemAdapter.ViewHolder> {
 
-    List<String> titles;
-    List<String> descs;
-    List<Integer> images;
+    private ArrayList<MenuItem> models;
     LayoutInflater inflater;
 
-    public ItemAdapter(Context ctx, List<String> titles, List<Integer> images, List<String> descs){
-        this.titles = titles;
-        this.images = images;
-        this.descs = descs;
-        this.inflater = LayoutInflater.from(ctx);
+    public ItemAdapter(ArrayList<MenuItem> models, Context context){
+        this.models = models;
+        this.inflater = LayoutInflater.from(context);
     }
 
 
@@ -37,14 +35,16 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(titles.get(position));
-        holder.itemImage.setImageResource(images.get(position));
-        holder.description.setText(descs.get(position));
+        holder.title.setText(models.get(position).getName());
+        holder.description.setText(models.get(position).getDescription());
+        //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
+        Log.d("MENU1", "" + models.size());
+
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return models.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
