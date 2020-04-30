@@ -1,6 +1,7 @@
 package com.example.foodrocket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Offer {
     private int id;

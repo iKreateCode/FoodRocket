@@ -1,12 +1,21 @@
 package com.example.foodrocket;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 /**
@@ -23,6 +32,8 @@ public class OffersFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ArrayList<Offer> offers = new ArrayList<>();
 
     public OffersFragment() {
         // Required empty public constructor
@@ -60,5 +71,50 @@ public class OffersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_offers, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        defaultGetOffers();
+    }
+
+    private void defaultGetOffers() {
+        JsonParser parser = new JsonParser();
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Offer>>() {}.getType();
+
+        try {
+            ApiOfferRequest items_api = new ApiOfferRequest();
+            String response = items_api.execute().get();
+            JsonObject json_response = parser.parse(response).getAsJsonObject();
+
+            if (json_response.has("success")) {
+                offers = gson.fromJson(json_response.getAsJsonArray("success"), type);
+            } else if (json_response.has("error")) { // Invalid credentials
+                String error = json_response.get("error").toString();
+                Toast.makeText(this.getContext(), error,Toast.LENGTH_LONG).show();
+            } else { // Some other error :(
+                Toast.makeText(this.getContext(), response, Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+    }
+
+    class ApiOfferRequest extends AsyncTask<String,Void,String> {
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            GetRequestHandler ruc = new GetRequestHandler();
+            return ruc.sendGetRequestParam("https://foodrocket.herokuapp.com/api/v1/offers", null);
+        }
     }
 }

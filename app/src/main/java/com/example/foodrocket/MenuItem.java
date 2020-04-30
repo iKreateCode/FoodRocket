@@ -6,9 +6,9 @@ public class MenuItem {
     private int id;
     private String name;
     private String description;
-    private int categoryId;
+    private int category_id;
     private double price;
-    private String imageUrl;
+    private String image_url;
     private ArrayList<ItemExtra> extras;
 
     // Getters & Setters
@@ -36,12 +36,12 @@ public class MenuItem {
         this.description = description;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public double getPrice() {
@@ -52,11 +52,19 @@ public class MenuItem {
         this.price = price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
+
+//    public ArrayList<ItemExtra> getExtras() {
+//        return extras;
+//    }
+
+//    public void setExtras(ArrayList<ItemExtra> extras) {
+//        this.extras = extras;
+//    }
 }
