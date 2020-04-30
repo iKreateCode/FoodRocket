@@ -80,9 +80,6 @@ public class CartFragment extends Fragment {
 
         items = gson.fromJson(json_items, menu_item_type);
         offers = gson.fromJson(json_offer_items, offer_type);
-
-        items.add(new MenuItem());
-        offers.add(new Offer());
     }
 
     private static void saveCartItems(Context context) {

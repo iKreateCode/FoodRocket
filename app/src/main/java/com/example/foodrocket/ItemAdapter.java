@@ -37,7 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.title.setText(models.get(position).getName());
-        holder.description.setText(models.get(position).getDescription());
+        //holder.price.setText("" + models.get(position).getPrice());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +47,7 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
                 Intent intent = new Intent(context, Item.class);
                 intent.putExtra("ItemName",models.get(position).getName());
                 intent.putExtra("ItemDesc",models.get(position).getDescription());
+                intent.putExtra("ItemPrice","" + models.get(position).getPrice());
                 context.startActivity(intent);
             }
         });
@@ -61,13 +62,13 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
         TextView title;
-        TextView description;
+        TextView price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.desc);
+            price = (TextView) itemView.findViewById(R.id.price);
         }
     }
 }

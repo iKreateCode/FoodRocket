@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Item extends AppCompatActivity {
 
-    private TextView itemTitle, itemImage, itemDescription;
+    private TextView itemTitle, itemPrice, itemDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +16,10 @@ public class Item extends AppCompatActivity {
 
         itemTitle = (TextView) findViewById(R.id.title);
         itemDescription = (TextView) findViewById(R.id.desc);
+        itemPrice = (TextView) findViewById(R.id.price);
 
         itemTitle.setText(getIntent().getStringExtra("ItemName"));
         itemDescription.setText(getIntent().getStringExtra("ItemDesc"));
+        itemPrice.setText(getIntent().getStringExtra("ItemPrice"));
     }
 }
