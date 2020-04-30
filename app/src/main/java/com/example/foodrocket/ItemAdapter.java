@@ -37,7 +37,6 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
         holder.title.setText(models.get(position).getName());
         holder.description.setText(models.get(position).getDescription());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
-        Log.d("MENU1", "" + models.size());
 
     }
 
