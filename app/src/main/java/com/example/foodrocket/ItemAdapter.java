@@ -1,6 +1,7 @@
 package com.example.foodrocket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,25 +19,37 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.ItemAdapter.ViewHolder> {
 
     private ArrayList<MenuItem> models;
-    LayoutInflater inflater;
+    Context context;
 
     public ItemAdapter(ArrayList<MenuItem> models, Context context){
         this.models = models;
-        this.inflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.menu_item_layout,parent,false);
-        return new ViewHolder(view);
+    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.menu_item_layout,
+                parent,false);
+        return new ViewHolder(view.getRootView());
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.title.setText(models.get(position).getName());
         holder.description.setText(models.get(position).getDescription());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, Item.class);
+                intent.putExtra("ItemName",models.get(position).getName());
+                intent.putExtra("ItemDesc",models.get(position).getDescription());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -55,13 +68,6 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
             itemImage = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.desc);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Clicked -> " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 }

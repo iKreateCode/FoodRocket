@@ -127,17 +127,6 @@
                 android:text="New User? Sign Up Here"
                 android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/guestButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/registerTextview"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Continue As Guest" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

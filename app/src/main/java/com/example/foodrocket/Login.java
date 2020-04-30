@@ -29,7 +29,7 @@ public class Login extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private TextView register;
-    private Button btnLogin, btnGuest;
+    private Button btnLogin;
     private CheckBox checkBox;
 
     final String SHARED_PREFS = "sharedPrefs";
@@ -45,7 +45,6 @@ public class Login extends AppCompatActivity {
         register = (TextView) findViewById(R.id.registerTextview);
         checkBox = (CheckBox) findViewById(R.id.showPassword);
         btnLogin = (Button) findViewById(R.id.loginButton);
-        btnGuest = (Button) findViewById(R.id.guestButton);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -73,13 +72,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        btnGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Navigation.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void logIn(final String email, final String password) {
