@@ -48,6 +48,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="51dp"
                             android:text="2 x Freshly baked pizza"
+                            android:fontFamily="@font/questrian2"
                             android:textColor="#262628"
                             android:textSize="20dp" />
 
@@ -61,11 +62,13 @@
                                 android:layout_width="111dp"
                                 android:layout_height="match_parent"
                                 android:text="£9.99"
+                                android:fontFamily="@font/coolvetica"
                                 android:textColor="#262628"
                                 android:textSize="18dp" />
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/remove_button"
+                                android:fontFamily="@font/questrian2"
                                 android:layout_width="match_parent"
                                 android:layout_height="36dp"
                                 android:background="@color/UI_Red"

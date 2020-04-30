@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    tools:ignore="VectorDrawableCompat">
+    tools:context=".Checkout"
+    tools:ignore="VectorDrawableCompat"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvLogin"
@@ -14,9 +15,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:elevation="10dp"
-        android:transitionName="tvLogin"
         android:fontFamily="@font/questrian2"
-        android:text="LOGIN"
+        android:layout_gravity="center"
+        android:transitionName="tvLogin"
+        android:text="CHECKOUT"
         android:textColor="@color/UI_DarkGrey"
         android:textSize="50dp"
         android:textStyle="bold" />
@@ -35,8 +37,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
 
@@ -50,54 +51,61 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="Email"
+                        android:text="Card Number"
                         android:fontFamily="@font/questrian2"
                         android:textColor="@color/UI_LightBlue"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/emailField"
+                        android:id="@+id/cardno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:fontFamily="@font/coolvetica"
-                        android:text="user@email.com"
-                        android:inputType="text" />
+                        android:maxLength="16"
+                        android:inputType="numberSigned"
+                        android:layout_marginRight="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="Password"
+                        android:text="Sort Code"
                         android:fontFamily="@font/questrian2"
                         android:textColor="@color/UI_LightBlue"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/confirmPasswordField"
+                        android:id="@+id/sortcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/coolvetica"
+                        android:maxLength="6"
+                        android:inputType="numberSigned"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="CVV"
+                        android:fontFamily="@font/questrian2"
+                        android:textColor="@color/UI_LightBlue"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/cvv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:inputType="textPassword"
+                        android:maxLength="3"
                         android:fontFamily="@font/coolvetica"
-                        android:text="password"/>
-
-                    <CheckBox
-                        android:id="@+id/showPassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:elevation="5dp"
-                        android:checked="false"
-                        android:text="Show Password"
-                        android:fontFamily="@font/questrian2"
-                        tools:ignore="MissingConstraints" />
+                        android:inputType="numberSigned"
+                        android:layout_marginRight="10dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -109,7 +117,7 @@
                 android:layout_alignLeft="@+id/cv"
                 android:layout_alignRight="@+id/cv"
                 android:layout_marginLeft="35dp"
-                android:layout_marginTop="-50dp"
+                android:layout_marginTop="-30dp"
                 android:layout_marginRight="35dp"
                 android:elevation="10dp">
 
@@ -118,26 +126,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/UI_Red"
-                    android:text="Login"
-                    android:textSize="25dp"
+                    android:text="Pay"
                     android:fontFamily="@font/questrian2"
+                    android:textSize="25dp"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/registerTextview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/UI_LightBlue"
-                android:elevation="5dp"
-                android:text="New User? Sign Up Here"
-                android:fontFamily="@font/questrian2"
-                android:textSize="14sp" />
 
         </RelativeLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

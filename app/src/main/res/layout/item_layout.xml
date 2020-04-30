@@ -58,6 +58,8 @@
                         android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:text="Pizza"
+                        android:textColor="@color/UI_DarkGrey"
+                        android:fontFamily="@font/questrian2"
                         android:textSize="25dp"
                         android:textStyle="bold" />
 
@@ -67,6 +69,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="£9.99"
+                        android:textColor="@color/UI_DarkGrey"
+                        android:fontFamily="@font/coolvetica"
                         android:textSize="25dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -85,6 +89,8 @@
                     android:layout_marginBottom="13dp"
                     android:background="@color/UI_Red"
                     android:text="Add to Cart"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/questrian2"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -94,6 +100,8 @@
                     android:layout_above="@+id/desc"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
+                    android:textColor="@color/UI_DarkGrey"
+                    android:fontFamily="@font/questrian2"
                     android:layout_margin="5dp"
                     android:gravity="left"
                     android:text="Details"
@@ -107,6 +115,8 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
+                    android:textColor="@color/UI_LightBlue"
+                    android:fontFamily="@font/coolvetica"
                     android:layout_margin="5dp"
                     android:gravity="left"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."

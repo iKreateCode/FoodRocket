@@ -1,6 +1,7 @@
 package com.example.foodrocket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,6 +31,7 @@ public class CartFragment extends Fragment {
     private static ArrayList<Offer> offers = new ArrayList<>(0);
     private RecyclerView recyclerView;
     private CartAdapter adapter;
+    private Button checkoutButton;
 
     private final static String SHARED_PREFS = "sharedPrefs";
     private final static String CART_MENU_ITEMS = "cart_menu_items";
@@ -62,12 +65,20 @@ public class CartFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_cart, container, false);
         recyclerView = view.findViewById(R.id.cart_list);
+        checkoutButton = view.findViewById(R.id.checkout_btn);
         adapter = new CartAdapter(items, getContext());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),1,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent((Context) getActivity(), Checkout.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

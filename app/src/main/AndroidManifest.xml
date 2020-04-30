@@ -35,6 +35,9 @@
         <activity
             android:name=".ItemDetailActivity"
             android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name=".Checkout"
+            android:theme="@style/AppTheme.FullScreen" />
     </application>
 
 </manifest>
