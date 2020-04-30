@@ -59,6 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:text="user@email.com"
                         android:inputType="text" />
 
                     <TextView
@@ -76,7 +77,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:text="password"/>
 
                     <CheckBox
                         android:id="@+id/showPassword"
