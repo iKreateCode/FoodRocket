@@ -34,6 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText("1 x " + models.get(position).getName());
+        holder.price.setText("£" + models.get(position).getPrice());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
     }
 
@@ -45,14 +46,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
         TextView title;
-        TextView description;
+        TextView price;
         Button remove;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.desc);
+            price = (TextView) itemView.findViewById(R.id.price);
             remove = (Button) itemView.findViewById(R.id.remove_button);
 
             remove.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                 public void onClick(View v) {
                     CartFragment.removeFromCart(models.get(getAdapterPosition()), itemView.getContext());
                     notifyDataSetChanged();
+                    CartFragment.updateTotal();
                 }
             });
 
