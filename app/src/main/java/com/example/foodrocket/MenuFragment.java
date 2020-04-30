@@ -31,18 +31,13 @@ import java.util.concurrent.ExecutionException;
  */
 public class MenuFragment extends Fragment implements View.OnClickListener{
 
-//    RecyclerView recyclerView;
-//    ViewPager viewPager;
-//    Adapter adapter;
-//    List<PopularItemModel> models;
-//    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-
     private ArrayList<MenuItem> items = new ArrayList<>();
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
 
     private final String SHARED_PREFS = "sharedPrefs";
     private final String USER_TOKEN = "user_token";
+    private boolean api_fetched = false;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -68,12 +63,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        try {
-            items = defaultGetItems();
-            adapter = new ItemAdapter(items, getContext());
-            recyclerView.setAdapter(adapter);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!api_fetched) {
+            try {
+                items = defaultGetItems();
+                adapter = new ItemAdapter(items, getContext());
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
