@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -34,6 +35,10 @@ public class CartFragment extends Fragment {
     private RecyclerView recyclerView;
     private CartAdapter adapter;
     private Button checkoutButton;
+    private static TextView subtotal_amount;
+    private static TextView shipping_amount;
+    private static TextView total_amount;
+
 
     private final static String SHARED_PREFS = "sharedPrefs";
     private final static String CART_MENU_ITEMS = "cart_menu_items";
@@ -73,6 +78,12 @@ public class CartFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),1,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        subtotal_amount = (TextView) view.findViewById(R.id.subtotal_amount);
+        shipping_amount = (TextView) view.findViewById(R.id.shipping_amount);
+        total_amount = (TextView) view.findViewById(R.id.total_amount);
+
+        updateTotal();
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
