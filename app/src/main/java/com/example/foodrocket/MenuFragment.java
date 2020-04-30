@@ -24,13 +24,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MenuFragment extends Fragment implements View.OnClickListener{
-
 
 //    RecyclerView recyclerView;
 //    ViewPager viewPager;
@@ -38,12 +37,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 //    List<PopularItemModel> models;
 //    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
-    RecyclerView recyclerView;
-    ItemAdapter adapter;
-    ArrayList<MenuItem> items = new ArrayList<>();
+    private ArrayList<MenuItem> items = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
 
-    final String SHARED_PREFS = "sharedPrefs";
-    final String USER_TOKEN = "user_token";
+    private final String SHARED_PREFS = "sharedPrefs";
+    private final String USER_TOKEN = "user_token";
 
     public MenuFragment() {
         // Required empty public constructor
@@ -52,37 +51,16 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
     @SuppressLint("Assert")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_menu, container, false);
-
-        //itemCard = (CardView) view.findViewById(R.id.pizza1);
-
-        //itemCard.setOnClickListener(this);
-
-//        models = new ArrayList<>();
-//        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-//        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-//        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-//        models.add(new PopularItemModel(R.drawable.pizza, "Pizza", "Fresh Backed Pizza"));
-//
-//        adapter = new Adapter(models, (Context) getActivity());
-//
-//        viewPager = view.findViewById(R.id.viewPager);
-//        viewPager.setAdapter(adapter);
-//        viewPager.setPadding(200, 0, 200, 0);
-//
-
         recyclerView = view.findViewById(R.id.recycler_menu);
+        adapter = new ItemAdapter(items, getContext());
 
-        adapter = new ItemAdapter(items, (Context) getActivity());
+        items.add(new MenuItem());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager((Context) getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
-
 
         return view;
     }
@@ -90,33 +68,36 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        defaultGetItems();
+        try {
+            items = defaultGetItems();
+            adapter = new ItemAdapter(items, getContext());
+            recyclerView.setAdapter(adapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void defaultGetItems() {
+    private ArrayList<MenuItem> defaultGetItems() throws ExecutionException, InterruptedException {
         ApiMenuItemRequest items_api = new ApiMenuItemRequest();
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(USER_TOKEN, "");
         JsonParser parser = new JsonParser();
 
-        try {
-            String response = items_api.execute(token).get();
-            JsonObject json_response = parser.parse(response).getAsJsonObject();
-            if (json_response.has("success")) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<ArrayList<MenuItem>>() {}.getType();
-                items = gson.fromJson(json_response.getAsJsonArray("success"), type);
-            } else if (json_response.has("error")) { // Invalid credentials
-                String error = json_response.get("error").toString();
-                Toast.makeText(this.getContext(), error,Toast.LENGTH_LONG).show();
-            } else { // Some other error :(
-                Toast.makeText(this.getContext(), response, Toast.LENGTH_LONG).show();
-            }
+        String response = items_api.execute(token).get();
+        JsonObject json_response = parser.parse(response).getAsJsonObject();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (json_response.has("success")) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<MenuItem>>() {}.getType();
+            return gson.fromJson(json_response.getAsJsonArray("success"), type);
+        } else if (json_response.has("error")) { // Invalid credentials
+            String error = json_response.get("error").toString();
+            Toast.makeText(this.getContext(), error,Toast.LENGTH_LONG).show();
+        } else { // Some other error :(
+            Toast.makeText(this.getContext(), response, Toast.LENGTH_LONG).show();
         }
-        recyclerView.setAdapter(adapter);
+
+        return null;
     }
 
     @Override

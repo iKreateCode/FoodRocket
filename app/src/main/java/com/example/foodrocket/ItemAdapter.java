@@ -25,7 +25,6 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
         this.inflater = LayoutInflater.from(context);
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
