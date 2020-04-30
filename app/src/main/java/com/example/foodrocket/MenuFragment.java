@@ -70,10 +70,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
-        // TODO: Testing only
-        CartFragment.addToCart(items.get(0), getContext());
-        CartFragment.addToCart(items.get(1), getContext());
-        CartFragment.addToCart(items.get(2), getContext());
     }
 
     private ArrayList<MenuItem> defaultGetItems() throws ExecutionException, InterruptedException {
