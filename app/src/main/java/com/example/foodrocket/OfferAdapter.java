@@ -34,7 +34,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(models.get(position).getName());
-        holder.description.setText(models.get(position).getDescription());
+        holder.price.setText("£ " + models.get(position).getPrice());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
         Log.d("MENU1", "" + models.size());
     }
@@ -47,13 +47,13 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
         TextView title;
-        TextView description;
+        TextView price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.desc);
+            price = (TextView) itemView.findViewById(R.id.price);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
