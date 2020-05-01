@@ -42,7 +42,7 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.title.setText(models.get(position).getName());
-        //holder.price.setText("" + models.get(position).getPrice());
+        holder.price.setText("£ " + models.get(position).getPrice());
         //holder.itemImage.setImageResource(Integer.parseInt(models.get(position).getImageUrl()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
