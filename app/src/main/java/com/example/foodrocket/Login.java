@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,12 +17,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 public class Login extends AppCompatActivity {
     private EditText email;
@@ -113,7 +110,7 @@ public class Login extends AppCompatActivity {
             credentials.put("email",params[0]);
             credentials.put("password",params[1]);
 
-            GetRequestHandler ruc = new GetRequestHandler();
+            RequestHandler ruc = new RequestHandler();
 
             String response = ruc.sendPostRequest("https://foodrocket.herokuapp.com/api/v1/user/login", credentials);
             return response;

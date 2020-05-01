@@ -97,7 +97,7 @@ public class OffersFragment extends Fragment implements View.OnClickListener{
 
         @Override
         protected String doInBackground(String... params) {
-            GetRequestHandler ruc = new GetRequestHandler();
+            RequestHandler ruc = new RequestHandler();
             return ruc.sendGetRequestParam("https://foodrocket.herokuapp.com/api/v1/offers", null);
         }
     }

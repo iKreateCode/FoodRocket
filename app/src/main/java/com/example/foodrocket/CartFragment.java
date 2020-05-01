@@ -18,10 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.lang.StrictMath.round;
 
@@ -46,6 +49,7 @@ public class CartFragment extends Fragment {
 
     // Attributes for loading from and saving to SharedPreferences
     private static SharedPreferences sharedPreferences;
+    final String USER_TOKEN = "user_token";
     private static Gson gson = new Gson();
     private static Type menu_item_type = new TypeToken<ArrayList<MenuItem>>() {}.getType();
     private static Type offer_type = new TypeToken<ArrayList<Offer>>() {}.getType();
@@ -62,8 +66,6 @@ public class CartFragment extends Fragment {
             loadSavedCartItems(this.getContext());
             cart_loaded = true;
         }
-        Log.d("Cart", "Items loaded in cart: " + items.size());
-        Log.d("Cart", "Offers loaded in cart: " + offers.size());
     }
 
     @Override
@@ -91,14 +93,33 @@ public class CartFragment extends Fragment {
                 if (items.size() == 0) {
                     Toast.makeText(getContext(),"No Items In Cart :(", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Group the data
+                    // Gather items in JSON
                     Gson gson = new Gson();
+                    JsonParser parser = new JsonParser();
                     String items_json = gson.toJson(items);
                     Log.d("Cart", items_json);
 
-                    // Make Request
+                    // Setup request data
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put("token", sharedPreferences.getString(USER_TOKEN, ""));
+                    data.put("order_type_id", "1");
+                    data.put("note", "-");
+                    data.put("items", items_json);
 
-                    // Show Order history screen
+                    // Make request
+                    RequestHandler ruc = new RequestHandler().sendPostRequest("https://foodrocket.herokuapp.com/api/v1/order",
+                            data, sharedPreferences.getString(USER_TOKEN, null), getContext());
+                    Log.d("Response", ruc.request_response);
+                    JsonObject json_response = parser.parse(ruc.request_response).getAsJsonObject();
+
+                    if (json_response.has("success")) {
+                        Toast.makeText(getContext(), "Order Placed Successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), AccountFragment.class);
+                        getContext().startActivity(intent);
+                    } else {
+                        // Show Error
+                        Toast.makeText(getContext(), "Unexpected Error Occurred.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

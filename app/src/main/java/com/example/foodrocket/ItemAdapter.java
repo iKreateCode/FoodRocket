@@ -54,7 +54,6 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

@@ -6,12 +6,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +112,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
         @Override
         protected String doInBackground(String... params) {
-            GetRequestHandler ruc = new GetRequestHandler();
+            RequestHandler ruc = new RequestHandler();
             return ruc.sendGetRequestParam("https://foodrocket.herokuapp.com/api/v1/menu", params[0]);
         }
     }

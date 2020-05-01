@@ -1,6 +1,15 @@
 package com.example.foodrocket;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +26,10 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class GetRequestHandler {
+public class RequestHandler {
+
+    public String request_response;
+
     public String sendPostRequest(String requestURL, HashMap<String, String> postDataParams) {
         URL url;
         String response = "";
@@ -54,6 +66,42 @@ public class GetRequestHandler {
 
         Log.d("Menu", response);
         return response;
+    }
+
+    public RequestHandler sendPostRequest(String requestURL, final HashMap<String, String> postDataParams, final String token, Context context) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, requestURL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                request_response = response;
+            }
+
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse response = error.networkResponse;
+                String errorMsg = "";
+                if(response != null && response.data != null){
+                    String errorString = new String(response.data);
+                    Log.i("log error", errorString);
+                }
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+            protected Map<String, String> getParams() {
+                return postDataParams;
+            }
+        };
+
+        return this;
     }
 
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
