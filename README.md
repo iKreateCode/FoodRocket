@@ -38,7 +38,8 @@ cd FoodRocket
 
 2. Open Android Studio (terminal or GUI can be used)
 ```bash
-./studio.sh```
+./studio.sh
+```
 
 3. File > New > Import Project and select the downloaded/cloned folder.
 
