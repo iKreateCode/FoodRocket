@@ -88,8 +88,18 @@ public class CartFragment extends Fragment {
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent((Context) getActivity(), Checkout.class);
-                startActivity(intent);
+                if (items.size() == 0) {
+                    Toast.makeText(getContext(),"No Items In Cart :(", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Group the data
+                    Gson gson = new Gson();
+                    String items_json = gson.toJson(items);
+                    Log.d("Cart", items_json);
+
+                    // Make Request
+
+                    // Show Order history screen
+                }
             }
         });
         return view;

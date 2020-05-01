@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +48,9 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                String json_item = new Gson().toJson(models.get(position));
                 Intent intent = new Intent(context, Item.class);
-                intent.putExtra("ItemName",models.get(position).getName());
-                intent.putExtra("ItemDesc",models.get(position).getDescription());
-                intent.putExtra("ItemPrice","" + models.get(position).getPrice());
-                intent.putExtra("models",models);
+                intent.putExtra("selected_item",json_item);
                 context.startActivity(intent);
             }
         });
