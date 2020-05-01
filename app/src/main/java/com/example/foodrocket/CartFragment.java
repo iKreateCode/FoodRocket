@@ -35,8 +35,8 @@ public class CartFragment extends Fragment {
 
     private static ArrayList<MenuItem> items = new ArrayList<>(0);
     private static ArrayList<Offer> offers = new ArrayList<>(0);
-    private RecyclerView recyclerView;
-    private CartAdapter adapter;
+    private static RecyclerView recyclerView;
+    private static CartAdapter adapter;
     private Button checkoutButton;
     private static TextView subtotal_amount;
     private static TextView shipping_amount;
@@ -95,9 +95,7 @@ public class CartFragment extends Fragment {
                 } else {
                     // Gather items in JSON
                     Gson gson = new Gson();
-                    JsonParser parser = new JsonParser();
                     String items_json = gson.toJson(items);
-                    Log.d("Cart", items_json);
 
                     // Setup request data
                     HashMap<String, String> data = new HashMap<>();
@@ -107,19 +105,9 @@ public class CartFragment extends Fragment {
                     data.put("items", items_json);
 
                     // Make request
-                    RequestHandler ruc = new RequestHandler().sendPostRequest("https://foodrocket.herokuapp.com/api/v1/order",
+                    RequestHandler ruc = new RequestHandler();
+                    ruc.sendPostRequest("https://foodrocket.herokuapp.com/api/v1/order",
                             data, sharedPreferences.getString(USER_TOKEN, null), getContext());
-                    Log.d("Response", ruc.request_response);
-                    JsonObject json_response = parser.parse(ruc.request_response).getAsJsonObject();
-
-                    if (json_response.has("success")) {
-                        Toast.makeText(getContext(), "Order Placed Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), AccountFragment.class);
-                        getContext().startActivity(intent);
-                    } else {
-                        // Show Error
-                        Toast.makeText(getContext(), "Unexpected Error Occurred.", Toast.LENGTH_SHORT).show();
-                    }
                 }
             }
         });
@@ -198,6 +186,14 @@ public class CartFragment extends Fragment {
         saveCartItems(context);
     }
 
+    public static void emptyCart(Context context) {
+        items = new ArrayList<>();
+        saveCartItems(context);
+        updateTotal();
+        adapter = new CartAdapter(items, context);
+        recyclerView.setAdapter(adapter);
+    }
+
     public static boolean itemInCart(MenuItem item, Context context) {
         if (!cart_loaded) {
             loadSavedCartItems(context);
@@ -239,5 +235,20 @@ public class CartFragment extends Fragment {
         subtotal_amount.setText(String.format("£%s", String.format("%.2f", subtotal)));
         shipping_amount.setText(String.format("£%s", String.format("%.2f", delivery)));
         total_amount.setText(String.format("£%s", String.format("%.2f", total)));
+    }
+
+    public static void orderCompleted(String response, Context context) {
+        JsonParser parser = new JsonParser();
+        Log.d("Response", response);
+        JsonObject json_response = parser.parse(response).getAsJsonObject();
+
+        if (json_response.has("success")) {
+            Toast.makeText(context, "Order Placed Successfully", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(context, AccountFragment.class);
+//            context.startActivity(intent);
+            emptyCart(context);
+        } else {
+            Toast.makeText(context, "Unexpected Error Occurred.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

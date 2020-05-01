@@ -28,8 +28,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler {
 
-    public String request_response;
-
     public String sendPostRequest(String requestURL, HashMap<String, String> postDataParams) {
         URL url;
         String response = "";
@@ -64,17 +62,18 @@ public class RequestHandler {
             e.printStackTrace();
         }
 
-        Log.d("Menu", response);
         return response;
     }
 
-    public RequestHandler sendPostRequest(String requestURL, final HashMap<String, String> postDataParams, final String token, Context context) {
+    public void sendPostRequest(String requestURL, final HashMap<String, String> postDataParams, final String token, final Context context) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+        Log.d("Reqpest", "executing...");
 
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, requestURL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, requestURL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                request_response = response;
+                Log.d("Request Completed", response);
+                CartFragment.orderCompleted(response, context);
             }
 
         }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
@@ -101,7 +100,7 @@ public class RequestHandler {
             }
         };
 
-        return this;
+        requestQueue.add(request);
     }
 
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
