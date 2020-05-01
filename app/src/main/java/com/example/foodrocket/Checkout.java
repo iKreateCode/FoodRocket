@@ -9,7 +9,7 @@ public class Checkout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.checkout_activity);
+        setContentView(R.layout.menu_item_layout);
     }
 
 }

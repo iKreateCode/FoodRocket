@@ -2,6 +2,9 @@ package com.example.foodrocket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +47,12 @@ public class ItemAdapter extends RecyclerView.Adapter<com.example.foodrocket.Ite
             @Override
             public void onClick(View v) {
 
+
                 Intent intent = new Intent(context, Item.class);
                 intent.putExtra("ItemName",models.get(position).getName());
                 intent.putExtra("ItemDesc",models.get(position).getDescription());
                 intent.putExtra("ItemPrice","" + models.get(position).getPrice());
+                intent.putExtra("models",models);
                 context.startActivity(intent);
             }
         });
