@@ -1,4 +1,4 @@
-🚀FoodRocket API 
+🚀FoodRocket Android Application
 ---
 Android Application connected with a RESTful API which offers flexible eCommerce platform features.
 
